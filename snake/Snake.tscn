@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/sprites/snake/snake.png" type="Texture" id=1]
+[ext_resource path="res://snake/SnakeBody.tscn" type="PackedScene" id=2]
+[ext_resource path="res://snake/SnakeTail.tscn" type="PackedScene" id=3]
+[ext_resource path="res://snake/Snake.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 22.9602
+height = 74.5482
+
+[node name="Snake" type="Node2D"]
+scale = Vector2( 0.6, 0.6 )
+script = ExtResource( 4 )
+speed = 150.0
+
+[node name="Tail" type="Node2D" parent="."]
+position = Vector2( -81.4259, -1.66855 )
+
+[node name="SnakeBody" parent="Tail" instance=ExtResource( 2 )]
+position = Vector2( -4.74658, 3.8031 )
+
+[node name="SnakeBody2" parent="Tail/SnakeBody/Tail" index="0" instance=ExtResource( 2 )]
+position = Vector2( -6.79057, 3.00339 )
+
+[node name="SnakeBody" parent="Tail/SnakeBody/Tail/SnakeBody2/Tail" index="0" instance=ExtResource( 2 )]
+
+[node name="SnakeTail" parent="Tail/SnakeBody/Tail/SnakeBody2/Tail/SnakeBody/Tail" index="0" instance=ExtResource( 3 )]
+position = Vector2( 90.1955, 1.78192 )
+scale = Vector2( 1, 1 )
+
+[node name="Head" type="Sprite" parent="."]
+position = Vector2( -34.2572, 0 )
+texture = ExtResource( 1 )
+hframes = 3
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -34.9622, 0 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[editable path="Tail/SnakeBody"]
+[editable path="Tail/SnakeBody/Tail/SnakeBody2"]
+[editable path="Tail/SnakeBody/Tail/SnakeBody2/Tail/SnakeBody"]
